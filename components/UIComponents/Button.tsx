@@ -23,7 +23,7 @@ export default function Button({
       disabled={disabled}
       onClick={handleOnClick}
       >
-      { disabled && <Spinner /> }
+      {disabled && <Spinner />}
       {imageUrl && <img src={imageUrl} className="w-5 h-5" />}
       {label}
     </button>
