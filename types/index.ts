@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import { IconDefinition } from "@fortawesome/free-regular-svg-icons";
-import { ReactNode } from 'react';
+import { ComponentType, ReactNode, SVGProps } from 'react';
 
 export type NextPageWithAuth<P = {}, IP = P> = NextPage<P, IP> & {
   requiresAuth?: boolean;
@@ -94,4 +94,20 @@ export type InputProps = {
   handleOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
   cusCss?: string,
   disabled?: boolean,
+};
+
+export type MenuItemProps = {
+  icon: ReactNode,
+  label: string,
+  collapsed: boolean
+};
+
+export type SidebarProps = {
+  id: number,
+  label: string,
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
+};
+
+export type MenuListProps = {
+  collapsed: boolean;
 };

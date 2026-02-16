@@ -2,6 +2,7 @@ import React from 'react'
 import SocialLogin from './Auth/SocialLogin'
 import { AuthFormProps } from '@/types'
 import Button from './UIComponents/Button'
+import LogoIcon from './UIComponents/LogoIcon'
 
 export default function AuthForm({
   children,
@@ -17,9 +18,7 @@ export default function AuthForm({
     <div className="flex flex-col justify-center items-center flex-1">
       <div className="w-full max-w-sm">
         <div className="mb-6">
-          <div className="w-10 h-10 rounded-lg bg-black flex items-center justify-center text-white font-bold">
-            S
-          </div>
+          <LogoIcon />
         </div>
 
         <h1 className="text-2xl font-bold mb-1 text-black">{title}</h1>
