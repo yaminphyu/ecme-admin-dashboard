@@ -4,17 +4,21 @@ import {
   BellIcon,
 } from "@heroicons/react/24/outline";
 import { ReactNode } from "react";
+import ProfileDropdown from "./ProfileDropdown";
+import { getAuth } from "firebase/auth";
 
 const IconWithHover = ({
   children,
-  onToggle
+  onToggle,
+  cusCss
 }: {
   children: ReactNode,
-  onToggle?: () => void
+  onToggle?: () => void;
+  cusCss?: string
 }) => {
   return (
     <div
-      className="hover:bg-gray-200 p-1 rounded-full cursor-pointer"
+      className={`hover:bg-gray-300 p-1.5 rounded-full cursor-pointer ${cusCss}`}
       onClick={onToggle ? onToggle : () => {}}
     >
       {children}
@@ -22,14 +26,34 @@ const IconWithHover = ({
   )
 }
 export default function Topbar({
-  onToggle
+  onToggle,
+  handleProfileToggle,
+  isProfileToggle,
+  handleMobileToggle,
 }: {
-  onToggle: () => void
+  onToggle: () => void,
+  handleProfileToggle: () => void,
+  isProfileToggle: boolean
+  handleMobileToggle: () => void,
 }) {
+  const auth = getAuth();
+  const user = auth.currentUser;
+  console.log({ auth, user });
+  
   return (
+    <>
     <header className="h-20 bg-white border-b flex items-center justify-between px-6">
       <div className="flex items-center gap-4">
-        <IconWithHover onToggle={onToggle}>
+        <IconWithHover
+          onToggle={handleMobileToggle}
+          cusCss='lg:hidden'
+        >
+          <Bars3Icon className="w-6 h-6 text-black cursor-pointer" />
+        </IconWithHover>
+        <IconWithHover
+          onToggle={onToggle}
+          cusCss='hidden lg:block'
+        >
           <Bars3Icon className="w-6 h-6 text-black cursor-pointer" />
         </IconWithHover>
 
@@ -47,8 +71,16 @@ export default function Topbar({
           src="https://i.pravatar.cc/40"
           className="w-8 h-8 rounded-full cursor-pointer"
           alt="profile"
+          onClick={handleProfileToggle}
+          onMouseDown={(e) => e.stopPropagation()}
         />
       </div>
     </header>
+    <ProfileDropdown
+      isProfileToggle={isProfileToggle}
+      user={user}
+      onClose={handleProfileToggle}
+    />
+    </>
   );
 }

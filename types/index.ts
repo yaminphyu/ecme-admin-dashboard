@@ -99,7 +99,9 @@ export type InputProps = {
 export type MenuItemProps = {
   icon: ReactNode,
   label: string,
-  collapsed: boolean
+  cusCss?: string,
+  onClick?: () => void,
+  collapsed?: boolean
 };
 
 export type SidebarProps = {

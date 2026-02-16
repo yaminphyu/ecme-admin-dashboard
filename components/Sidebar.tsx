@@ -1,45 +1,79 @@
 import { SIDE_BAR } from "@/config";
 import { MenuItemProps, MenuListProps, SidebarProps } from "@/types";
 import LogoIcon from "./UIComponents/LogoIcon";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 export default function Sidebar({
-  collapsed
+  collapsed,
+  mobileOpen,
+  handleMobileToggle,
 }: {
-  collapsed: boolean
+  collapsed: boolean;
+  mobileOpen: boolean;
+  handleMobileToggle: () => void;
 }) {
   return (
-    <aside
-      className={`
-        bg-white border-r h-full
-        transition-all duration-300
-        ${collapsed ? "w-20" : "w-72"}
-      `}
-    >
-      <Logo collapsed={collapsed} />
-      <MenuList collapsed={collapsed} />
-    </aside>
+    <>
+      {
+        mobileOpen && <div className="fixed inset-0 bg-black/40 z-40 lg:hidden" />
+      }
+      <aside
+        className={`
+          fixed lg:static z-50
+          bg-white border-r h-full
+          transition-all duration-300
+          ${collapsed ? "lg:w-20" : "lg:w-64"}
+          w-72
+          ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
+          lg:translate-x-0
+        `}
+      >
+        <Logo collapsed={collapsed} handleMobileToggle={handleMobileToggle} />
+        <MenuList collapsed={collapsed} />
+      </aside>
+    </>
   );
 }
 
-const Logo = ({ collapsed }: MenuListProps) => {
+const Logo = ({
+  collapsed,
+  handleMobileToggle,
+}: {
+  collapsed: boolean;
+  handleMobileToggle: () => void;
+}) => {
   return (
-    <div className="h-16 flex items-center justify-start px-5">
+    <div className="h-16 flex items-center justify-between lg:justify-start px-5">
       <div className="font-bold text-lg text-black flex items-center gap-2">
         <LogoIcon />
         {!collapsed && "Ecme"}
       </div>
+      <div
+        className="p-1.5 hover:bg-gray-300 rounded-full lg:hidden cursor-pointer"
+        onClick={handleMobileToggle}
+      >
+        <XMarkIcon className="w-6 h-6 text-gray-700 hover:text-gray-800" />
+      </div>
     </div>
   )
 }
-const MenuItem = ({
+export const MenuItem = ({
   icon,
   label,
+  cusCss,
+  onClick,
   collapsed
 }: MenuItemProps) => {
   return (
-    <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 text-black cursor-pointer">
+    <div
+      className={`
+        flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 text-black cursor-pointer w-full
+        ${cusCss}
+      `}
+      onClick={onClick}
+    >
       {icon}
-      {!collapsed && <span>{label}</span>}
+      {!collapsed && <span className="text-black">{label}</span>}
     </div>
   );
 }

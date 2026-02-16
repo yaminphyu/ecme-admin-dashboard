@@ -1,13 +1,14 @@
 import Sidebar from '@/components/Sidebar';
 import Topbar from '@/components/Topbar';
 import { useAuth } from '@/contexts/AuthContext';
+import useNavbar from '@/hooks/useNavbar';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 export const AuthGuard = ({ children }: { children: React.ReactNode }) => {
   const { user, loading } = useAuth();
   const router = useRouter();
-  const [collapsed, setCollapsed] = useState(false);
+  const { collapsed, isProfileToggle, mobileOpen, handleToggle, handleProfileToggle, handleMobileToggle } = useNavbar();
 
   useEffect(() => {
     if (!loading && !user) {
@@ -19,10 +20,19 @@ export const AuthGuard = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="flex h-screen bg-gray-100">
-      <Sidebar collapsed={collapsed} />
+      <Sidebar
+        collapsed={collapsed}
+        mobileOpen={mobileOpen}
+        handleMobileToggle={handleMobileToggle}
+      />
 
       <div className="flex flex-col flex-1">
-        <Topbar onToggle={() => setCollapsed(!collapsed)} />
+        <Topbar
+          onToggle={handleToggle}
+          handleProfileToggle={handleProfileToggle}
+          isProfileToggle={isProfileToggle}
+          handleMobileToggle={handleMobileToggle}
+        />
 
         <main className="p-6 overflow-y-auto">
           {children}
