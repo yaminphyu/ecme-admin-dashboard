@@ -1,5 +1,5 @@
 import React from 'react'
-import SocialLogin from './Login/SocialLogin'
+import SocialLogin from './Auth/SocialLogin'
 import { AuthFormProps } from '@/types'
 import Button from './UIComponents/Button'
 
@@ -11,6 +11,7 @@ export default function AuthForm({
   error,
   handleSubmit,
   isLoginPage = false,
+  handleLoginWithGoogle
 }: AuthFormProps) {
   return (
     <div className="flex flex-col justify-center items-center flex-1">
@@ -34,7 +35,10 @@ export default function AuthForm({
           isBlueButton={true}
         />
 
-        <SocialLogin isLoginPage={isLoginPage} />
+        <SocialLogin
+          isLoginPage={isLoginPage}
+          handleLoginWithGoogle={handleLoginWithGoogle || (() => {})}
+        />
       </div>
     </div>
   )

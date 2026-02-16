@@ -21,9 +21,11 @@ const AuthText = ({
 };
 
 export default function SocialLogin({
-  isLoginPage = false
+  isLoginPage = false,
+  handleLoginWithGoogle
 }: {
-  isLoginPage?: boolean
+  isLoginPage?: boolean,
+  handleLoginWithGoogle: (type: 'google' | 'github') => void,
 }) {
   if (!isLoginPage) {
     return (
@@ -48,12 +50,12 @@ export default function SocialLogin({
       <div className="flex gap-4">
         <Button
           label='Google'
-          handleOnClick={() => {}}
+          handleOnClick={() => handleLoginWithGoogle('google')}
           imageUrl='/images/auth/google.png'
         />
         <Button
           label='Github'
-          handleOnClick={() => {}}
+          handleOnClick={() => handleLoginWithGoogle('github')}
           imageUrl='/images/auth/github.png'
         />
       </div>

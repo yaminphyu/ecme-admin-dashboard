@@ -1,5 +1,5 @@
 import { mapAuthError } from '@/modules/auth/auth.errors';
-import { login, register } from '@/modules/auth/auth.service';
+import { forgotPassword, login, loginWithGithub, loginWithGoogle, register } from '@/modules/auth/auth.service';
 import { LoginAuthUser, SignupAuthUser } from '@/types';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
@@ -79,6 +79,28 @@ export default function useAuth() {
     }
   };
 
+  const handleLoginWithGoogle = async (type: 'google' | 'github') => {
+    if (isLoading) return;
+  
+    setLoading(true);
+    setError(null);
+  
+    try {
+      type === 'google' ? await loginWithGoogle() : await loginWithGithub();
+      router.replace('/');
+    } catch (err: unknown) {
+      if (err && typeof err === 'object' && 'code' in err) {
+        setError(mapAuthError((err as { code: string }).code));
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  const handleSubmitForgotPassword = () => {
+    alert('');
+  };
+
   return {
     isLoading,
     isShow,
@@ -90,6 +112,7 @@ export default function useAuth() {
     handleOnChange,
     handleSubmitLogin,
     handleSubmitSignup,
-    handleOnChangeForSignup
+    handleOnChangeForSignup,
+    handleLoginWithGoogle,
   }
 }

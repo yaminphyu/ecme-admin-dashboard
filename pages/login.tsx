@@ -1,6 +1,6 @@
 import React from 'react';
-import AuthSideImage from '@/components/Login/AuthSideImage';
-import LoginForm from '@/components/Login/LoginForm';
+import AuthSideImage from '@/components/Auth/AuthSideImage';
+import LoginForm from '@/components/Auth/LoginForm';
 import useAuth from '@/hooks/useAuth';
 
 export default function Login() {
@@ -11,7 +11,8 @@ export default function Login() {
     error,
     handlePasswordEye,
     handleOnChange,
-    handleSubmitLogin
+    handleSubmitLogin,
+    handleLoginWithGoogle
   } = useAuth();
 
   return (
@@ -27,6 +28,7 @@ export default function Login() {
         handleSubmit={handleSubmitLogin}
         isLoading={isLoading}
         isLoginPage={true}
+        handleLoginWithGoogle={handleLoginWithGoogle}
       />
       <AuthSideImage />
     </div>

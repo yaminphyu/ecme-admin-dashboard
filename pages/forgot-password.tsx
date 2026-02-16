@@ -1,9 +1,9 @@
-import React from 'react'
-import AuthSideImage from '@/components/Auth/AuthSideImage'
+import React from 'react';
+import AuthSideImage from '@/components/Auth/AuthSideImage';
 import useAuth from '@/hooks/useAuth';
-import SignupForm from '@/components/Auth/SignupForm';
+import ForgotPasswordForm from '@/components/Auth/ForgotPasswordForm';
 
-export default function Signup() {
+export default function ForgotPassword() {
   const {
     isLoading,
     isShow,
@@ -17,9 +17,9 @@ export default function Signup() {
 
   return (
     <div className="min-h-screen w-full flex p-6">
-      <SignupForm
-        title='Sign Up'
-        subTitle='And lets get started with your free trial'
+      <ForgotPasswordForm
+        title='Welcome back!'
+        subTitle='Please enter your credentials to sign in!'
         authUser={signupAuthUser}
         isShow={isShow}
         isShowConfirmPass={isShowConfirmPass}
@@ -31,5 +31,5 @@ export default function Signup() {
       />
       <AuthSideImage />
     </div>
-  )
+  );
 }

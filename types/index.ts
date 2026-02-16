@@ -48,6 +48,7 @@ export type LoginFormProps = {
   handlePasswordEye: (field: "password" | "confirm") => void;
   handleSubmit: () => void;
   isLoginPage?: boolean;
+  handleLoginWithGoogle: (type: 'google' | 'github') => void;
 };
 
 export type AuthFormProps = {
@@ -56,6 +57,21 @@ export type AuthFormProps = {
   subTitle?: string;
   isLoading: boolean;
   error: string | null,
+  handleSubmit: () => void;
+  isLoginPage?: boolean;
+  handleLoginWithGoogle?: (type: 'google' | 'github') => void;
+};
+
+export type ForgotFormProps = {
+  title?: string;
+  subTitle?: string;
+  isLoading: boolean;
+  isShow: boolean;
+  isShowConfirmPass: boolean;
+  error: string | null,
+  authUser: SignupAuthUser;
+  handleOnChange: React.ChangeEventHandler<HTMLInputElement>;
+  handlePasswordEye: (field: "password" | "confirm") => void;
   handleSubmit: () => void;
   isLoginPage?: boolean;
 };
@@ -77,4 +93,5 @@ export type InputProps = {
   placeholder: string,
   handleOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
   cusCss?: string,
+  disabled?: boolean,
 };

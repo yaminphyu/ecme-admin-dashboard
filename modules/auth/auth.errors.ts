@@ -20,6 +20,9 @@ export const mapAuthError = (code: string) => {
     case 'auth/too-many-requests':
       return 'Too many attempts. Try again later.';
 
+    case 'auth/email-required':
+      return 'Email is needed to fill.';
+
     default:
       return 'Something went wrong. Please try again.';
   }

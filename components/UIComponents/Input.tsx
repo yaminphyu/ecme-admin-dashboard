@@ -8,7 +8,8 @@ export default function Input({
   value,
   placeholder,
   handleOnChange,
-  cusCss
+  cusCss,
+  disabled = false,
 }: InputProps) {
   return (
     <input
@@ -17,6 +18,7 @@ export default function Input({
       name={name}
       value={value}
       placeholder={placeholder}
+      disabled={disabled}
       className={`
         w-full rounded-lg border px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700
         ${cusCss}  
