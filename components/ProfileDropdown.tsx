@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { MenuItem } from './Sidebar'
 import { ArrowRightStartOnRectangleIcon, UserIcon } from '@heroicons/react/24/outline'
 import { logout } from '@/modules/auth/auth.service'
+import Select from './UIComponents/Select'
 
 type ProfileDropdownProps = {
   isProfileToggle: boolean,
@@ -16,31 +17,14 @@ export default function ProfileDropdown({
 }: ProfileDropdownProps) {
   const profileRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    if (!isProfileToggle) return;
-  
-    const handleClickOutside = (event: MouseEvent) => {
-      if (!profileRef.current) return;
-  
-      if (!profileRef.current.contains(event.target as Node)) {
-        onClose();
-      }
-    };
-  
-    document.addEventListener("mousedown", handleClickOutside);
-  
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isProfileToggle, onClose]);
-  
-
   if (!isProfileToggle) return <></>;
 
   return (
-    <div
-      ref={profileRef}
-      className="w-54 h-auto bg-gray-100 absolute mt-16 rounded-md right-5 top-0 p-3 shadow-2xl"
+    <Select
+      cusRef={profileRef}
+      cusCss='mt-16 top-0 z-20 w-54 right-5 bg-gray-100'
+      isToggle={isProfileToggle}
+      onClose={onClose}
     >
       <div className='border-b border-b-gray-400 flex justify-start items-center px-1 pt-1 pb-3 gap-2'>
         <img
@@ -78,6 +62,6 @@ export default function ProfileDropdown({
           onClick={logout}
         />
       </div>
-    </div>
+    </Select>
   )
 }

@@ -1,9 +1,45 @@
-import React from 'react'
+import React, { ReactNode, RefObject, useEffect } from 'react'
 
-export default function Select() {
+type SelectProps = {
+  children: ReactNode;
+  isToggle: boolean;
+  cusRef: RefObject<HTMLDivElement | null>;
+  cusCss?: string;
+  onClose: () => void;
+}
+
+export default function Select({
+  children,
+  isToggle,
+  cusRef,
+  cusCss,
+  onClose
+}: SelectProps) {
+
+  useEffect(() => {
+    if (!isToggle) return;
+  
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!cusRef.current) return;
+  
+      if (!cusRef.current.contains(event.target as Node)) {
+        onClose();
+      }
+    };
+  
+    document.addEventListener("mousedown", handleClickOutside);
+  
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isToggle, onClose]);
+  
   return (
-    <div className='absolute w-32 h-32 bg-red-200 z-10'>
-      
+    <div
+      ref={cusRef}
+      className={`h-auto absolute rounded-md p-3 shadow-2xl ${cusCss}`}
+    >
+      {children}
     </div>
   )
 }

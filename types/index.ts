@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import { IconDefinition } from "@fortawesome/free-regular-svg-icons";
-import { ComponentType, ReactNode, SVGProps } from 'react';
+import { ComponentType, ReactNode, RefObject, SVGProps } from 'react';
 
 export type NextPageWithAuth<P = {}, IP = P> = NextPage<P, IP> & {
   requiresAuth?: boolean;
@@ -112,4 +112,28 @@ export type SidebarProps = {
 
 export type MenuListProps = {
   collapsed: boolean;
+};
+
+export type SalesTargetProps = {
+  label: string,
+  value: string,
+};
+
+export type HeaderTitleProps = {
+  label: string;
+  handleMonthlyToggle: () => void;
+  saleTargetTime: string;
+  isMonthlyToggle: boolean;
+  monthlyRef: RefObject<HTMLDivElement | null>;
+  isDropdow?: boolean
+};
+
+export type ProductItemProps = {
+  id: number;
+  name: string;
+  price: string;
+  quantity: number;
+  sold: number;
+  image: string;
+  percentage: number;
 };

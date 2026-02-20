@@ -34,7 +34,7 @@ export const AuthGuard = ({ children }: { children: React.ReactNode }) => {
           handleMobileToggle={handleMobileToggle}
         />
 
-        <main className="p-6 overflow-y-auto">
+        <main className="p-8 overflow-y-auto">
           {children}
         </main>
       </div>

@@ -2,6 +2,8 @@ import { SIDE_BAR } from "@/config";
 import { MenuItemProps, MenuListProps, SidebarProps } from "@/types";
 import LogoIcon from "./UIComponents/LogoIcon";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
+import { route } from "@/route";
 
 export default function Sidebar({
   collapsed,
@@ -42,12 +44,14 @@ const Logo = ({
   collapsed: boolean;
   handleMobileToggle: () => void;
 }) => {
+  const { HOME } = route;
+
   return (
     <div className="h-16 flex items-center justify-between lg:justify-start px-5">
-      <div className="font-bold text-lg text-black flex items-center gap-2">
-        <LogoIcon />
-        {!collapsed && "Ecme"}
-      </div>
+        <Link href={HOME} className="font-bold text-lg text-black flex items-center gap-2">
+          <LogoIcon />
+          {!collapsed && "Ecme"}
+        </Link>
       <div
         className="p-1.5 hover:bg-gray-300 rounded-full lg:hidden cursor-pointer"
         onClick={handleMobileToggle}
