@@ -7,7 +7,7 @@ export default function useDashboard() {
 
   const handleMonthlyToggle = () => setIsMonthlyToggle(v => !v);
   const handleOverviewMonthlyToggle = () => setIsOverviewMonthlyToggle(v => !v);
-  const handleSaleTarget = (e) => {
+  const handleSaleTarget = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     console.log({ value });
   }
