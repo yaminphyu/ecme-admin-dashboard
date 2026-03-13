@@ -52,11 +52,13 @@ export default function SocialLogin({
           label='Google'
           handleOnClick={() => handleLoginWithGoogle('google')}
           imageUrl='/images/auth/google.png'
+          cusCss='w-1/2'
         />
         <Button
           label='Github'
           handleOnClick={() => handleLoginWithGoogle('github')}
           imageUrl='/images/auth/github.png'
+          cusCss='w-1/2'
         />
       </div>
 

@@ -1,18 +1,23 @@
 import { SIDE_BAR } from "@/config";
-import { MenuItemProps, MenuListProps, SidebarProps } from "@/types";
+import { MenuListProps, SidebarProps } from "@/types";
 import LogoIcon from "./UIComponents/LogoIcon";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { route } from "@/route";
+import { MenuItem } from "./MenuItem";
 
 export default function Sidebar({
   collapsed,
   mobileOpen,
   handleMobileToggle,
+  isSidebarItemToggle,
+  handleRoute
 }: {
   collapsed: boolean;
   mobileOpen: boolean;
   handleMobileToggle: () => void;
+  isSidebarItemToggle: boolean;
+  handleRoute: (item: SidebarProps) => void
 }) {
   return (
     <>
@@ -24,14 +29,18 @@ export default function Sidebar({
           fixed lg:static z-50
           bg-white border-r h-full
           transition-all duration-300
-          ${collapsed ? "lg:w-20" : "lg:w-64"}
+          ${collapsed ? "lg:w-20" : "lg:w-70"}
           w-72
           ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
           lg:translate-x-0
         `}
       >
         <Logo collapsed={collapsed} handleMobileToggle={handleMobileToggle} />
-        <MenuList collapsed={collapsed} />
+        <MenuList
+          collapsed={collapsed}
+          isSidebarItemToggle={isSidebarItemToggle}
+          handleRoute={handleRoute}
+        />
       </aside>
     </>
   );
@@ -60,29 +69,13 @@ const Logo = ({
       </div>
     </div>
   )
-}
-export const MenuItem = ({
-  icon,
-  label,
-  cusCss,
-  onClick,
-  collapsed
-}: MenuItemProps) => {
-  return (
-    <div
-      className={`
-        flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 text-black cursor-pointer w-full
-        ${cusCss}
-      `}
-      onClick={onClick}
-    >
-      {icon}
-      {!collapsed && <span className="text-black">{label}</span>}
-    </div>
-  );
-}
+};
 
-const MenuList = ({ collapsed }: MenuListProps) => {
+const MenuList = ({
+  collapsed,
+  isSidebarItemToggle,
+  handleRoute,
+}: MenuListProps) => {
   return (
     <nav className="p-4 space-y-2">
       {
@@ -91,9 +84,11 @@ const MenuList = ({ collapsed }: MenuListProps) => {
           return (
             <MenuItem
               key={item?.id}
-              icon={<Icon className="w-6 h-6" />}
-              label={item?.label}
+              icon={<Icon className={`w-6 h-6 ${item.url === window.location.pathname ? "font-semibold text-blue-500" : "text-gray-600"}`} />}
+              item={item}
+              onClick={handleRoute.bind(null, item)}
               collapsed={collapsed}
+              isSidebarItemToggle={isSidebarItemToggle}
             />
           )
         })

@@ -4,6 +4,7 @@ import Input from '@/components/UIComponents/Input';
 import { LoginFormProps } from '@/types';
 import AuthForm from '../AuthForm';
 import { faEyeIcon } from '@/util';
+import Link from 'next/link';
 
 export default function LoginForm({
   title,
@@ -62,9 +63,9 @@ export default function LoginForm({
       </div>
 
       <div className="text-sm mb-6">
-        <a href="/forgot-password" className="text-blue-600 hover:underline">
+        <Link href="/forgot-password" className="text-blue-600 hover:underline">
           Forgot password
-        </a>
+        </Link>
       </div>
     </AuthForm>
   )

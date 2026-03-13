@@ -34,9 +34,10 @@ export default function MonthlyDropdown({
             <span className="text-gray-700 capitalize font-semibold">{saleTargetTime}</span>
             <ChevronDownIcon className="w-4 h-4 text-black" />
           </div>
-        ) : <div className='rounded-md py-2 px-3 shadow-2xl border border-gray-300 bg-gray-50 cursor-pointer'>
-          <Link href={PRODUCT_LIST}>View all</Link>
-        </div>
+        ) :
+          <Link href={PRODUCT_LIST}>
+            <div className='rounded-md py-2 px-3 shadow-2xl border border-gray-300 bg-gray-50 cursor-pointer'>View all</div>
+          </Link>
       }
 
       {
@@ -51,6 +52,7 @@ export default function MonthlyDropdown({
               {SALES_TARGET?.map((item, index) => {
                 return (
                   <div
+                    key={index}
                     className={`
                       flex items-center gap-1 px-4 py-2 rounded-md hover:bg-blue-100 text-left font-semibold cursor-pointer
                       ${saleTargetTime === item?.value ? 'text-blue-500' : 'text-gray-500 hover:text-gray-600'}

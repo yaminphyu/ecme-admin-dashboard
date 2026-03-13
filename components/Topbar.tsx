@@ -6,6 +6,7 @@ import {
 import { ReactNode } from "react";
 import ProfileDropdown from "./ProfileDropdown";
 import { getAuth } from "firebase/auth";
+import { SidebarProps } from "@/types";
 
 const IconWithHover = ({
   children,
@@ -30,15 +31,16 @@ export default function Topbar({
   handleProfileToggle,
   isProfileToggle,
   handleMobileToggle,
+  handleRoute
 }: {
   onToggle: () => void,
   handleProfileToggle: () => void,
   isProfileToggle: boolean
   handleMobileToggle: () => void,
+  handleRoute: (item: SidebarProps) => void,
 }) {
   const auth = getAuth();
   const user = auth.currentUser;
-  console.log({ auth, user });
   
   return (
     <>
@@ -80,6 +82,7 @@ export default function Topbar({
       isProfileToggle={isProfileToggle}
       user={user}
       onClose={handleProfileToggle}
+      handleRoute={handleRoute}
     />
     </>
   );

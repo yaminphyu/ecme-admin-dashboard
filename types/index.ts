@@ -83,6 +83,7 @@ export type ButtonProps = {
   cusCss?: string,
   disabled?: boolean,
   isBlueButton?: boolean,
+  icon?: IconDefinition,
 };
 
 export type InputProps = {
@@ -98,20 +99,32 @@ export type InputProps = {
 
 export type MenuItemProps = {
   icon: ReactNode,
-  label: string,
+  item: SidebarProps,
   cusCss?: string,
   onClick?: () => void,
-  collapsed?: boolean
+  collapsed?: boolean,
+  isSidebarItemToggle?: boolean;
+};
+
+export type SidebarItemProps = {
+  id: number,
+  label: string,
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
+  url: string,
 };
 
 export type SidebarProps = {
   id: number,
   label: string,
   icon: ComponentType<SVGProps<SVGSVGElement>>;
+  url: string,
+  children?: SidebarItemProps[]
 };
 
 export type MenuListProps = {
   collapsed: boolean;
+  isSidebarItemToggle: boolean;
+  handleRoute: (item: SidebarProps) => void
 };
 
 export type SalesTargetProps = {
@@ -125,7 +138,8 @@ export type HeaderTitleProps = {
   saleTargetTime: string;
   isMonthlyToggle: boolean;
   monthlyRef: RefObject<HTMLDivElement | null>;
-  isDropdow?: boolean
+  isDropdow?: boolean;
+  type?: string;
 };
 
 export type ProductItemProps = {
@@ -134,6 +148,32 @@ export type ProductItemProps = {
   price: string;
   quantity: number;
   sold: number;
-  image: string;
-  percentage: number;
+  image?: string;
+  percentage?: number;
+}
+
+export type ProductDisplayProps = {
+  id: number;
+  name: React.ReactNode;
+  price: string;
+  quantity: number;
+  sold: React.ReactNode;
+  image?: string;
+  percentage?: number;
+};
+
+export type ProductNameProps = {
+  key: string;
+  label: string;
+};
+
+export type Column<T> = {
+  key: keyof T | string;
+  label: string;
+  render?: (row: T) => React.ReactNode;
+};
+
+export type TableProps<T> = {
+  columns: Column<T>[];
+  data: T[];
 };

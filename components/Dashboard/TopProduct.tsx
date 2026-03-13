@@ -33,7 +33,7 @@ export default function TopProduct({
                     <div className='flex gap-2'>
                       <div>
                         <img
-                          src={item?.image}
+                          src={item?.image || ''}
                           alt='product-img'
                           className='w-14 h-14 rounded-lg'
                         />

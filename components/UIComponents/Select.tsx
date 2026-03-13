@@ -32,7 +32,7 @@ export default function Select({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isToggle, onClose]);
+  }, [isToggle, onClose, cusRef]);
   
   return (
     <div

@@ -1,6 +1,7 @@
 import React from 'react'
 import { ButtonProps } from '@/types'
 import Spinner from '../Spinner'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function Button({
   label,
@@ -9,22 +10,30 @@ export default function Button({
   cusCss,
   disabled = false,
   isBlueButton = false,
+  icon
 }: ButtonProps) {
   return (
     <button
       className={`
-        flex-1 rounded-lg flex items-center justify-center gap-2 cursor-pointer
+        rounded-lg inline-flex items-center justify-center gap-2 cursor-pointer font-semibold
         ${isBlueButton
-          ? 'w-full bg-blue-600 text-white py-3 font-medium hover:bg-blue-500 transition'
-          : 'hover:bg-gray-50 text-gray-600 py-2 border'
+          ? 'bg-blue-600 text-white px-6 py-3 font-medium hover:bg-blue-500 transition'
+          : 'text-gray-600 hover:text-blue-600 py-2 border hover:border-2 border-gray-600 hover:border-blue-600'
         }
         ${cusCss}
       `}
       disabled={disabled}
       onClick={handleOnClick}
       >
+      {icon && <FontAwesomeIcon icon={icon} className='w-9 h-9' />}
       {disabled && <Spinner />}
-      {imageUrl && <img src={imageUrl} className="w-5 h-5" />}
+      {imageUrl &&
+        <img
+          alt="icon"
+          src={imageUrl}
+          className="w-5 h-5"
+        />
+      }
       {label}
     </button>
   )

@@ -19,5 +19,6 @@ export default function useDashboard() {
     handleMonthlyToggle,
     handleOverviewMonthlyToggle,
     handleSaleTarget,
+    setSaleTargetTime
   }
 }

@@ -1,21 +1,26 @@
-import React, { useEffect, useRef } from 'react'
-import { MenuItem } from './Sidebar'
-import { ArrowRightStartOnRectangleIcon, UserIcon } from '@heroicons/react/24/outline'
+import { useRef } from 'react'
 import { logout } from '@/modules/auth/auth.service'
 import Select from './UIComponents/Select'
+import { MenuItem } from './MenuItem'
+import { PROFILE_CIRCLE } from '@/config'
+import { SidebarProps } from '@/types'
 
 type ProfileDropdownProps = {
   isProfileToggle: boolean,
   user: any,
-  onClose: () => void
+  onClose: () => void;
+  handleRoute: (item: SidebarProps) => void
 }
 
 export default function ProfileDropdown({
   isProfileToggle,
   user,
-  onClose
+  onClose,
+  handleRoute
 }: ProfileDropdownProps) {
   const profileRef = useRef<HTMLDivElement | null>(null);
+  const singOutItem = PROFILE_CIRCLE[PROFILE_CIRCLE.length - 1];
+  const SignOutIcon = singOutItem.icon;
 
   if (!isProfileToggle) return <></>;
 
@@ -38,26 +43,26 @@ export default function ProfileDropdown({
         </div>
       </div>
       <div className='flex flex-col justify-start items-start gap-1 my-2'>
-        <MenuItem
-          icon={<UserIcon className="w-6 h-6" />}
-          label='Profile'
-          cusCss='hover:!bg-gray-300'
-        />
-        <MenuItem
-          icon={<UserIcon className="w-6 h-6" />}
-          label='Profile'
-          cusCss='hover:!bg-gray-300'
-        />
-        <MenuItem
-          icon={<UserIcon className="w-6 h-6" />}
-          label='Profile'
-          cusCss='hover:!bg-gray-300'
-        />
+        {
+          PROFILE_CIRCLE?.map((item, index) => {
+            const Icon = item.icon;
+            if (index === PROFILE_CIRCLE.length - 1) return;
+            return (
+              <MenuItem
+                key={index}
+                icon={<Icon className="w-6 h-6" />}
+                item={item}
+                onClick={handleRoute.bind(null, item)}
+                cusCss='hover:!bg-gray-300'
+              />
+            )
+          })
+        }
       </div>
       <div className='border-t border-t-gray-400 flex justify-start items-center px-1 pb-1 pt-3 gap-2'>
         <MenuItem
-          icon={<ArrowRightStartOnRectangleIcon className="w-6 h-6" />}
-          label='Sign out'
+          icon={<SignOutIcon className="w-6 h-6" />}
+          item={singOutItem}
           cusCss='hover:!bg-gray-300'
           onClick={logout}
         />

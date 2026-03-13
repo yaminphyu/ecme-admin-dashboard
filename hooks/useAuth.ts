@@ -1,5 +1,5 @@
 import { mapAuthError } from '@/modules/auth/auth.errors';
-import { forgotPassword, login, loginWithGithub, loginWithGoogle, register } from '@/modules/auth/auth.service';
+import { login, loginWithGithub, loginWithGoogle, register } from '@/modules/auth/auth.service';
 import { LoginAuthUser, SignupAuthUser } from '@/types';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
@@ -86,7 +86,8 @@ export default function useAuth() {
     setError(null);
   
     try {
-      type === 'google' ? await loginWithGoogle() : await loginWithGithub();
+      if (type === 'google') await loginWithGoogle();
+      else await loginWithGithub();
       router.replace('/');
     } catch (err: unknown) {
       if (err && typeof err === 'object' && 'code' in err) {
@@ -95,10 +96,6 @@ export default function useAuth() {
     } finally {
       setLoading(false);
     }
-  };
-  
-  const handleSubmitForgotPassword = () => {
-    alert('');
   };
 
   return {
